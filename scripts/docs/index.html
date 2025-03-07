@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>数据看板</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.1/dist/echarts.min.js"></script>
+</head>
+<body>
+    <h1>关键词监控结果</h1>
+    <div id="chart" style="width: 800px; height: 600px;"></div>
+
+    <script>
+        fetch('data.json')
+            .then(response => response.json())
+            .then(data => {
+                const chart = echarts.init(document.getElementById('chart'));
+                const option = {
+                    title: { text: `关键词: ${data.keyword}` },
+                    tooltip: {},
+                    xAxis: { data: data.results.map((item, index) => `结果${index + 1}`) },
+                    yAxis: {},
+                    series: [{
+                        name: '标题长度',
+                        type: 'bar',
+                        data: data.results.map(item => item.title.length)
+                    }]
+                };
+                chart.setOption(option);
+            });
+    </script>
+</body>
+</html>
