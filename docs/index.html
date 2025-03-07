@@ -1,31 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <title>数据看板</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关键词监控看板</title>
+    
+    <!-- 本地样式 -->
+    <link rel="stylesheet" href="assets/style.css">
+    
+    <!-- ECharts CDN（可选本地文件） -->
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.1/dist/echarts.min.js"></script>
 </head>
 <body>
-    <h1>关键词监控结果</h1>
-    <div id="chart" style="width: 800px; height: 600px;"></div>
+    <div class="container">
+        <h1>🔍 关键词监控：<span id="keyword"></span></h1>
+        <div class="update-time">最后更新：<span id="lastUpdated"></span></div>
+        <div id="chart" class="chart-container"></div>
+        <div id="resultList" class="result-list"></div>
+    </div>
 
-    <script>
-        fetch('data.json')
-            .then(response => response.json())
-            .then(data => {
-                const chart = echarts.init(document.getElementById('chart'));
-                const option = {
-                    title: { text: `关键词: ${data.keyword}` },
-                    tooltip: {},
-                    xAxis: { data: data.results.map((item, index) => `结果${index + 1}`) },
-                    yAxis: {},
-                    series: [{
-                        name: '标题长度',
-                        type: 'bar',
-                        data: data.results.map(item => item.title.length)
-                    }]
-                };
-                chart.setOption(option);
-            });
-    </script>
+    <!-- 本地脚本 -->
+    <script src="assets/script.js"></script>
 </body>
 </html>
